@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package flowshot.api.navigatorservice.v1;
+package flowshot.navigator.api.navigatorservice.v1;
 
 option go_package = "github.com/flowshot-io/navigator-api/v1;navigatorservice";
 
