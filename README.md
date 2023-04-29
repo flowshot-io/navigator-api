@@ -1,5 +1,5 @@
-### [Discussions](https://github.com/flowshot-io/navigator-sdk/discussions)
+### [Discussions](https://github.com/flowshot-io/navigator-api/discussions)
 
-# Navigator SDK
+# Navigator API
 
-Proto files for creating navigator SDKs for different languages.
+Proto files for creating navigator API clients for different languages.

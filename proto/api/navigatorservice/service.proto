@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package flowshot.sdk.navigatorservice.v1;
+package flowshot.api.navigatorservice.v1;
 
-option go_package = "github.com/flowshot-io/navigator-sdk/v1;navigatorservice";
+option go_package = "github.com/flowshot-io/navigator-api/v1;navigatorservice";
 
 import "google/protobuf/timestamp.proto";
 
