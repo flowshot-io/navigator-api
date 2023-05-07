@@ -16,9 +16,6 @@ service NavigatorService {
     // UploadAssetStream uploads an asset to storage.
     rpc UploadAssetStream(stream AssetUploadStream) returns (AssetUploadStreamResponse);
 
-    // MoveAsset moves an asset to a new path.
-    rpc MoveAsset(MoveAssetRequest) returns (MoveAssetResponse);
-
     // DeleteAsset deletes an asset.
     rpc DeleteAsset(DeleteAssetRequest) returns (DeleteAssetResponse);
 
@@ -92,17 +89,6 @@ message AssetUploadStream {
 }
 
 message AssetUploadStreamResponse {
-}
-
-// Move
-
-message MoveAssetRequest {
-    string id = 1;
-    string path = 2;
-}
-
-message MoveAssetResponse {
-    string id = 1;
 }
 
 // Delete
