@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package flowshot.navigator.api.commandservice.v1;
+option go_package = "github.com/flowshot-io/navigator-api/v1;commandservice";
+
+service CommandService {
+    rpc CreateAsset(CreateAssetRequest) returns (CreateAssetResponse);
+    rpc DeleteAsset(DeleteAssetRequest) returns (DeleteAssetResponse);
+    rpc UpdateAsset(UpdateAssetRequest) returns (UpdateAssetResponse);
+}
+
+// Create
+
+message CreateAssetRequest {
+    string name = 1;
+}
+
+message CreateAssetResponse {
+    string assetID = 1;
+}
+
+// Update
+
+message UpdateAssetRequest {
+    string ID = 1;
+    string name = 2;
+}
+
+message UpdateAssetResponse {
+    string assetID = 1;
+}
+
+// Delete
+
+message DeleteAssetRequest {
+    string assetID = 1;
+}
+
+message DeleteAssetResponse {
+    string message = 1;
+}

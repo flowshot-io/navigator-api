@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package flowshot.navigator.api.queryservice.v1;
+option go_package = "github.com/flowshot-io/navigator-api/v1;queryservice";
+
+import "navigator/api/queryservice/v1/asset.proto";
+
+service QueryService {
+    rpc Search(SearchRequest) returns (SearchResponse);
+
+    rpc RecommendAsset(RecommendAssetRequest) returns (RecommendAssetResponse);
+    rpc GetAsset(GetAssetRequest) returns (GetAssetResponse);
+    rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
+
+    // rpc GetImage(GetImageRequest) returns (GetImageResponse);
+    // rpc ListImages(ListImageRequest) returns (ListImageResponse);
+
+    // rpc GetAudio(GetAudioRequest) returns (GetAudioResponse);
+    // rpc ListAudios(ListAudioRequest) returns (ListAudioResponse);
+
+    // rpc GetDocument(GetDocumentRequest) returns (GetDocumentResponse);
+    // rpc ListDocuments(ListDocumentRequest) returns (ListDocumentResponse);
+
+    // rpc GetVideo(GetVideoRequest) returns (GetVideoResponse);
+    // rpc ListVideos(ListVideoRequest) returns (ListVideoResponse);
+
+    // rpc GetFrame(GetFrameRequest) returns (GetFrameResponse);
+    // rpc ListFrames(ListFrameRequest) returns (ListFrameResponse);
+}
+
+// Search
+
+message SearchRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+    string text = 3;
+    string image = 4;
+}
+
+message SearchResult {
+    string assetID = 1;
+    string assetType = 2;
+    string assetName = 3;
+    double certainty = 8;
+    double distance = 9;
+}
+
+message SearchResponse {
+    repeated SearchResult results = 1;
+}
+
+// Recommend
+
+message RecommendAssetRequest {
+    string assetID = 1;
+    int32 limit = 2;
+    int32 offset = 3;
+}
+
+message RecommendAssetResult {
+    string assetID = 1;
+    double certainty = 8;
+    double distance = 9;
+}
+
+message RecommendAssetResponse {
+    repeated RecommendAssetResult results = 1;
+}
+
+// Get
+
+message GetAssetRequest {
+    string assetID = 1;
+}
+
+message GetAssetResponse {
+    Asset asset = 1;
+}
+
+// List
+
+message ListAssetsRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+    string assetType = 3;
+    
+}
+
+message ListAssetsResponse {
+    repeated Asset assets = 1;
+}

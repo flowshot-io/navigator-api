@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package flowshot.navigator.api.fileservice.v1;
+option go_package = "github.com/flowshot-io/navigator-api/v1;fileservice";
+
+service FileService {
+    rpc CreateMultipartUpload(CreateMultipartUploadRequest) returns (CreateMultipartUploadResponse);
+    rpc UploadPart(UploadPartRequest) returns (UploadPartResponse);
+    rpc CompleteMultipartUpload(CompleteMultipartUploadRequest) returns (CompleteMultipartUploadResponse);
+    rpc AbortMultipartUpload(AbortMultipartUploadRequest) returns (AbortMultipartUploadResponse);
+
+    rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
+}
+
+// CreateMultipartUpload
+
+message CreateMultipartUploadRequest {
+    string assetID = 1;
+    string key = 2;
+}
+
+message CreateMultipartUploadResponse {
+    string uploadID = 1;
+}
+
+// UploadPart
+
+message UploadPartRequest {
+    string uploadID = 1;
+    int32 partNumber = 2;
+    bytes data = 3;
+}
+
+message UploadPartResponse {
+    string uploadID = 1;
+    int32 partNumber = 2;
+}
+
+// CompleteMultipartUpload
+
+message CompleteMultipartUploadRequest {
+    string uploadId = 1;
+    repeated int32 partNumbers = 2;
+}
+
+message CompleteMultipartUploadResponse {
+    string message = 1;
+}
+
+// AbortMultipartUpload
+
+message AbortMultipartUploadRequest {
+    string uploadID = 1;
+}
+
+message AbortMultipartUploadResponse {
+    string message = 1;
+}
+
+// DownloadFile
+
+message DownloadFileRequest {
+    string assetID = 1;
+    int32 startChunkNumber = 2;
+}
+
+message DownloadFileResponse {
+    int32 chunkNumber = 1;
+    bytes data = 2;
+    string integrityCheckValue = 3;
+}
