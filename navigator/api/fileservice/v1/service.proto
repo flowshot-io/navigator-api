@@ -9,7 +9,7 @@ service FileService {
     rpc CompleteMultipartUpload(CompleteMultipartUploadRequest) returns (CompleteMultipartUploadResponse);
     rpc AbortMultipartUpload(AbortMultipartUploadRequest) returns (AbortMultipartUploadResponse);
 
-    rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse);
+    rpc GetFile(GetFileRequest) returns (stream GetFileResponse);
 }
 
 // CreateMultipartUpload
@@ -57,14 +57,14 @@ message AbortMultipartUploadResponse {
     string message = 1;
 }
 
-// DownloadFile
+// GetFile
 
-message DownloadFileRequest {
+message GetFileRequest {
     string assetID = 1;
     int32 startChunkNumber = 2;
 }
 
-message DownloadFileResponse {
+message GetFileResponse {
     int32 chunkNumber = 1;
     bytes data = 2;
     string integrityCheckValue = 3;

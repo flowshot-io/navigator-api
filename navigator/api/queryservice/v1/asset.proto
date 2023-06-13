@@ -3,13 +3,13 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
 message Asset {
-    string id = 1;
+    string ID = 1;
     string name = 2;
-    string path = 3;
-    string asset_type = 4;
+    string key = 3;
+    string type = 4;
     map<string, string> metadata = 5;
-    bool is_archived = 6;
-    google.protobuf.Timestamp created_at = 7;
-    google.protobuf.Timestamp updated_at = 8;
-    google.protobuf.Timestamp last_processed_at = 9;
+    map<string, string> alternatives = 6;
+    bool isArchived = 7;
+    google.protobuf.Timestamp createdAt = 8;
+    google.protobuf.Timestamp updatedAt = 9;
 }
