@@ -85,7 +85,7 @@ message ListFilesRequest {
 }
 
 message ListFilesResponse {
-    repeated File file = 1;
+    repeated File files = 1;
 }
 
 // WriteFile
