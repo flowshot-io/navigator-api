@@ -44,6 +44,8 @@ message CreateFileResponse {
 message WriteMultipartRequest {
     string fileID = 1;
     int64 partNumber = 2;
+    bytes data = 3;
+    string integrityCheckValue = 4;
 }
 
 message WriteMultipartResponse {}
