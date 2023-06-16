@@ -7,6 +7,16 @@ service CommandService {
     rpc CreateAsset(CreateAssetRequest) returns (CreateAssetResponse);
     rpc DeleteAsset(DeleteAssetRequest) returns (DeleteAssetResponse);
     rpc UpdateAsset(UpdateAssetRequest) returns (UpdateAssetResponse);
+
+    rpc GetAsset(GetAssetRequest) returns (GetAssetResponse);
+    rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
+}
+
+message Asset {
+    string assetID = 1;
+    string name = 2;
+    string createdAt = 3;
+    string updatedAt = 4;
 }
 
 // Create
@@ -22,13 +32,11 @@ message CreateAssetResponse {
 // Update
 
 message UpdateAssetRequest {
-    string ID = 1;
+    string assetID = 1;
     string name = 2;
 }
 
-message UpdateAssetResponse {
-    string assetID = 1;
-}
+message UpdateAssetResponse {}
 
 // Delete
 
@@ -38,4 +46,25 @@ message DeleteAssetRequest {
 
 message DeleteAssetResponse {
     string message = 1;
+}
+
+// Get
+
+message GetAssetRequest {
+    string assetID = 1;
+}
+
+message GetAssetResponse {
+    Asset asset = 1;
+}
+
+// List
+
+message ListAssetsRequest {
+    int32 page = 1;
+    int32 pageSize = 2;
+}
+
+message ListAssetsResponse {
+    repeated Asset assets = 1;
 }

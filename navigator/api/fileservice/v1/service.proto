@@ -4,68 +4,109 @@ package flowshot.navigator.api.fileservice.v1;
 option go_package = "github.com/flowshot-io/navigator-api/v1;fileservice";
 
 service FileService {
-    rpc CreateMultipartUpload(CreateMultipartUploadRequest) returns (CreateMultipartUploadResponse);
-    rpc UploadPart(UploadPartRequest) returns (UploadPartResponse);
-    rpc CompleteMultipartUpload(CompleteMultipartUploadRequest) returns (CompleteMultipartUploadResponse);
-    rpc AbortMultipartUpload(AbortMultipartUploadRequest) returns (AbortMultipartUploadResponse);
+    rpc CreateFile(CreateFileRequest) returns (CreateFileResponse);
+    rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
+
+    rpc WriteMultipart(WriteMultipartRequest) returns (WriteMultipartResponse);
+    rpc CompleteMultipart(CompleteMultipartRequest) returns (CompleteMultipartResponse);
 
     rpc GetFile(GetFileRequest) returns (stream GetFileResponse);
+    rpc ListFiles(ListFilesRequest) returns (ListFilesResponse);
+
+    rpc WriteFile(stream WriteFileRequest) returns (WriteFileResponse);
+    rpc ReadFile(ReadFileRequest) returns (stream ReadFileResponse);
 }
 
-// CreateMultipartUpload
+message File {
+    string fileID = 1;
+    string assetID = 2;
+    string multipartID = 3;
+    string key = 4;
+    int64 size = 5;
+    string status = 6;
+    bool isMultipart = 7;
+}
 
-message CreateMultipartUploadRequest {
+// CreateFile
+
+message CreateFileRequest {
     string assetID = 1;
     string key = 2;
+    bool isMultipart = 3;
 }
 
-message CreateMultipartUploadResponse {
-    string uploadID = 1;
+message CreateFileResponse {
+    string fileID = 1;
 }
 
-// UploadPart
+// WriteMultipart
 
-message UploadPartRequest {
-    string uploadID = 1;
-    int32 partNumber = 2;
-    bytes data = 3;
+message WriteMultipartRequest {
+    string fileID = 1;
+    int64 partNumber = 2;
 }
 
-message UploadPartResponse {
-    string uploadID = 1;
-    int32 partNumber = 2;
+message WriteMultipartResponse {}
+
+// CompleteMultipart
+
+message CompleteMultipartRequest {
+    string fileID = 1;
+    repeated int64 partNumbers = 2;
 }
 
-// CompleteMultipartUpload
+message CompleteMultipartResponse {}
 
-message CompleteMultipartUploadRequest {
-    string uploadId = 1;
-    repeated int32 partNumbers = 2;
+// DeleteFile
+
+message DeleteFileRequest {
+    string fileID = 1;
 }
 
-message CompleteMultipartUploadResponse {
-    string message = 1;
-}
-
-// AbortMultipartUpload
-
-message AbortMultipartUploadRequest {
-    string uploadID = 1;
-}
-
-message AbortMultipartUploadResponse {
-    string message = 1;
+message DeleteFileResponse {
 }
 
 // GetFile
 
 message GetFileRequest {
-    string assetID = 1;
-    int32 startChunkNumber = 2;
+    string fileID = 1;
 }
 
 message GetFileResponse {
-    int32 chunkNumber = 1;
+    File file = 1;
+}
+
+// ListFiles
+
+message ListFilesRequest {
+}
+
+message ListFilesResponse {
+    repeated File file = 1;
+}
+
+// WriteFile
+
+message WriteFileRequest {
+    string fileID = 1;
+    int64 chunkNumber = 2;
+    bytes data = 3;
+    string integrityCheckValue = 4;
+}
+
+message WriteFileResponse {
+    int64 chunkNumber = 1;
+}
+
+// ReadFile
+
+message ReadFileRequest {
+    string fileID = 1;
+    int64 startChunkNumber = 2;
+}
+
+message ReadFileResponse {
+    int64 chunkNumber = 1;
     bytes data = 2;
     string integrityCheckValue = 3;
 }
