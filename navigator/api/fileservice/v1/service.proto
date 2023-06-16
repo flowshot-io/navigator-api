@@ -91,13 +91,11 @@ message ListFilesResponse {
 
 message WriteFileRequest {
     string fileID = 1;
-    int64 chunkNumber = 2;
     bytes data = 3;
     string integrityCheckValue = 4;
 }
 
 message WriteFileResponse {
-    int64 chunkNumber = 1;
 }
 
 // ReadFile
