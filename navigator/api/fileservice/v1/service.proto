@@ -13,7 +13,7 @@ service FileService {
     rpc GetFile(GetFileRequest) returns (GetFileResponse);
     rpc ListFiles(ListFilesRequest) returns (ListFilesResponse);
 
-    rpc WriteFile(stream WriteFileRequest) returns (WriteFileResponse);
+    rpc WriteFile(WriteFileRequest) returns (WriteFileResponse);
     rpc ReadFile(ReadFileRequest) returns (stream ReadFileResponse);
 }
 
@@ -25,6 +25,7 @@ message File {
     int64 size = 5;
     string status = 6;
     bool isMultipart = 7;
+    string uploadedAt = 8;
 }
 
 // CreateFile
