@@ -10,7 +10,7 @@ service FileService {
     rpc WriteMultipart(WriteMultipartRequest) returns (WriteMultipartResponse);
     rpc CompleteMultipart(CompleteMultipartRequest) returns (CompleteMultipartResponse);
 
-    rpc GetFile(GetFileRequest) returns (stream GetFileResponse);
+    rpc GetFile(GetFileRequest) returns (GetFileResponse);
     rpc ListFiles(ListFilesRequest) returns (ListFilesResponse);
 
     rpc WriteFile(stream WriteFileRequest) returns (WriteFileResponse);
