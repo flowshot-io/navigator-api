@@ -22,10 +22,10 @@ message File {
     string assetID = 2;
     string multipartID = 3;
     string key = 4;
-    int64 size = 5;
+    string info = 5;
     string status = 6;
-    bool isMultipart = 7;
-    string uploadedAt = 8;
+    string uploadedAt = 7;
+    string processedAt = 8;
 }
 
 // CreateFile

@@ -12,11 +12,17 @@ service CommandService {
     rpc ListAssets(ListAssetsRequest) returns (ListAssetsResponse);
 }
 
+message File {
+    string fileID = 1;
+    string key = 2;
+}
+
 message Asset {
     string assetID = 1;
     string name = 2;
-    string createdAt = 3;
-    string updatedAt = 4;
+    repeated File files = 3;
+    string createdAt = 4;
+    string updatedAt = 5;
 }
 
 // Create
