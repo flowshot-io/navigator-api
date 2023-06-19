@@ -17,13 +17,90 @@ service FileService {
     rpc ReadFile(ReadFileRequest) returns (stream ReadFileResponse);
 }
 
+// Status
+
+enum Status {
+    STATUS_UNDEFINED = 0;
+    STATUS_CREATED = 1;
+    STATUS_UPLOADING = 2;
+    STATUS_VALIDATING = 3;
+    STATUS_PROCESSING = 4;
+    STATUS_INDEXING = 5;
+    STATUS_DELETING = 6;
+    STATUS_COMPLETED = 7;
+  }
+
+// Category
+
+enum Category {
+    CATEGORY_UNDEFINED = 0;
+    CATEGORY_IMAGE = 1;
+    CATEGORY_VIDEO = 2;
+    CATEGORY_AUDIO = 3;
+    CATEGORY_DOCUMENT = 4;
+}
+
+// FileType
+
+message MIME {
+    string type = 1;
+    string subtype = 2;
+    string value = 3;
+}
+  
+message FileType {
+    MIME mime = 1;
+    string extension = 2;
+}
+
+// Meta
+
+message VideoMeta {
+    int64 duration = 1;
+    string frameRate = 2;
+    string bitRate = 3;
+}
+  
+message DocumentMeta {
+    string text = 1;
+}
+  
+message ImageMeta {
+    string description = 1;
+    string imageKey = 2;
+}
+  
+message AudioMeta {
+    string transcription = 1;
+}
+  
+  message FileMeta {
+    oneof mediaMeta {
+        VideoMeta videoMeta = 1;
+        DocumentMeta documentMeta = 2;
+        ImageMeta imageMeta = 3;
+        AudioMeta audioMeta = 4;
+    }
+
+    Category category = 5; 
+    FileType type = 6;
+    int64 size = 7;
+}
+  
+message Info {
+    FileMeta internalMeta = 1;
+    map<string, string> meta = 2;
+}
+
+// File
+
 message File {
     string fileID = 1;
     string assetID = 2;
     string multipartID = 3;
     string key = 4;
-    string info = 5;
-    string status = 6;
+    Info info = 5;
+    Status status = 6;
     string uploadedAt = 7;
     string processedAt = 8;
 }
@@ -33,7 +110,7 @@ message File {
 message CreateFileRequest {
     string assetID = 1;
     string key = 2;
-    bool isMultipart = 3;
+    map<string, string> meta = 3;
 }
 
 message CreateFileResponse {
