@@ -3,6 +3,8 @@ syntax = "proto3";
 package flowshot.navigator.api.fileservice.v1;
 option go_package = "github.com/flowshot-io/navigator-api/v1;fileservice";
 
+import "google/protobuf/timestamp.proto";
+
 service FileService {
     rpc CreateFile(CreateFileRequest) returns (CreateFileResponse);
     rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
@@ -53,43 +55,16 @@ message FileType {
     string extension = 2;
 }
 
-// Meta
+// BoundingBox
 
-message VideoMeta {
-    int64 duration = 1;
-    string frameRate = 2;
-    string bitRate = 3;
+message Point {
+    double x = 1;
+    double y = 2;
 }
-  
-message DocumentMeta {
-    string text = 1;
-}
-  
-message ImageMeta {
-    string description = 1;
-    string imageKey = 2;
-}
-  
-message AudioMeta {
-    string transcription = 1;
-}
-  
-  message FileMeta {
-    oneof mediaMeta {
-        VideoMeta videoMeta = 1;
-        DocumentMeta documentMeta = 2;
-        ImageMeta imageMeta = 3;
-        AudioMeta audioMeta = 4;
-    }
 
-    Category category = 5; 
-    FileType type = 6;
-    int64 size = 7;
-}
-  
-message Info {
-    FileMeta internalMeta = 1;
-    map<string, string> meta = 2;
+message BoundingBox {
+    Point bottomLeft = 1;
+    Point topRight = 2;
 }
 
 // File
@@ -97,12 +72,25 @@ message Info {
 message File {
     string fileID = 1;
     string assetID = 2;
-    string multipartID = 3;
-    string key = 4;
-    Info info = 5;
-    Status status = 6;
-    string uploadedAt = 7;
-    string processedAt = 8;
+    string key = 3;
+    Status status = 4;
+    string multipartID = 5;
+
+    Category category = 6;
+    FileType type = 7;
+    int64 size = 8;
+
+    string contentDescription = 9;
+    map<string, string> contentMeta = 10;
+
+    string sampledFrom = 11;
+    int64 sampleIndex = 12;
+    BoundingBox sampleBounds = 13;
+
+    google.protobuf.Timestamp createdAt = 14;
+    google.protobuf.Timestamp uploadedAt = 15;
+    google.protobuf.Timestamp processedAt = 16;
+    google.protobuf.Timestamp indexedAt = 17;
 }
 
 // CreateFile
@@ -110,7 +98,9 @@ message File {
 message CreateFileRequest {
     string assetID = 1;
     string key = 2;
-    map<string, string> meta = 3;
+    string sampledFrom = 11;
+    int64 sampleIndex = 12;
+    BoundingBox sampleBounds = 13;
 }
 
 message CreateFileResponse {
