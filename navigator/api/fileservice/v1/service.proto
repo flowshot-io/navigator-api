@@ -30,28 +30,13 @@ enum Status {
     STATUS_INDEXING = 5;
     STATUS_DELETING = 6;
     STATUS_COMPLETED = 7;
-  }
-
-// Category
-
-enum Category {
-    CATEGORY_UNDEFINED = 0;
-    CATEGORY_IMAGE = 1;
-    CATEGORY_VIDEO = 2;
-    CATEGORY_AUDIO = 3;
-    CATEGORY_DOCUMENT = 4;
 }
+
 
 // FileType
 
-message MIME {
-    string type = 1;
-    string subtype = 2;
-    string value = 3;
-}
-  
 message FileType {
-    MIME mime = 1;
+    string mime = 1;
     string extension = 2;
 }
 
@@ -74,14 +59,15 @@ message File {
     string assetID = 2;
     string key = 3;
     Status status = 4;
+    
     string multipartID = 5;
-
-    Category category = 6;
-    FileType type = 7;
+    
+    string mime = 6;
+    string extension = 7;
     int64 size = 8;
 
-    string contentDescription = 9;
-    map<string, string> contentMeta = 10;
+    string description = 9;
+    map<string, string> meta = 10;
 
     string sampledFrom = 11;
     int64 sampleIndex = 12;
