@@ -157,13 +157,11 @@ message WriteFileResponse {
 
 message ReadFileRequest {
     string fileID = 1;
-    int64 startChunkNumber = 2;
+    int64 startByte = 2;
+    int64 endByte = 3;
 }
 
 message ReadFileResponse {
-    int64 chunkNumber = 1;
-    bytes data = 2;
-    string integrityCheckValue = 3;
-    int64 chunkSize = 4;
-    int64 totalFileSize = 5;
+    bytes data = 1;
+    int64 fileSize = 2;
 }
