@@ -28,8 +28,9 @@ enum Status {
     STATUS_VALIDATING = 3;
     STATUS_PROCESSING = 4;
     STATUS_INDEXING = 5;
-    STATUS_DELETING = 6;
-    STATUS_COMPLETED = 7;
+    STATUS_READY = 6;
+    STATUS_DELETING = 7;
+    STATUS_COMPLETED = 8;
 }
 
 
@@ -59,7 +60,7 @@ message File {
     string assetID = 2;
     string key = 3;
     Status status = 4;
-    
+
     string multipartID = 5;
     
     string mime = 6;
