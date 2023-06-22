@@ -33,14 +33,6 @@ enum Status {
     STATUS_COMPLETED = 8;
 }
 
-
-// FileType
-
-message FileType {
-    string mime = 1;
-    string extension = 2;
-}
-
 // BoundingBox
 
 message Point {
@@ -163,5 +155,9 @@ message ReadFileRequest {
 
 message ReadFileResponse {
     bytes data = 1;
-    int64 fileSize = 2;
+
+    string contentEncoding = 2;
+    int64 contentLength = 3;
+    string contentRange = 4;
+    string contentType = 5;
 }
